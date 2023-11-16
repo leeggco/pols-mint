@@ -32,7 +32,7 @@ const web3Rpc = ref('https://polygon.blockpi.network/v1/rpc/public')
 const gasCap = ref('800')
 const gasTip = ref('40')
 const count = ref(1)
-
+const doing = ref(false)
 const confirmedTxHashs = ref([])
 
 const data = '0x646174613a2c7b2270223a227072632d3230222c226f70223a226d696e74222c227469636b223a22706f6c73222c22616d74223a22313030303030303030227d'
@@ -40,8 +40,6 @@ const data = '0x646174613a2c7b2270223a227072632d3230222c226f70223a226d696e74222c
 let providerInstance
 
 let currentNonce
-
-let doing = false
 
 const doTx = async () => {
   let tx = {
@@ -81,17 +79,17 @@ const start2 = async () => {
 
 
 const start = async () => {
-  if (doing) {
+  if (doing.value) {
     return
   }
-  doing = true
+  doing.value = true
 
   try {
     await start2()
   } catch (e) {
     console.log(e)
   }
-  doing = false
+  doing.value = false
 }
 
 
