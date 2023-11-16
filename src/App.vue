@@ -40,6 +40,7 @@ let providerInstance
 
 let currentNonce
 
+let doing = false
 
 const doTx = async () => {
   let tx = {
@@ -67,17 +68,31 @@ const doTx = async () => {
   currentNonce++
 }
 
-const start = async () => {
-  console.log('start', web3Rpc.value)
-  providerInstance = new JsonRpcProvider(web3Rpc.value);
+const start2 = async () => {
+    providerInstance = new JsonRpcProvider(web3Rpc.value);
   const wallet = new ethers.Wallet(privateKey.value, providerInstance);
   address.value = wallet.address
   currentNonce = await providerInstance.getTransactionCount(address.value);
   for (let i = 0; i < count.value; i++) {
     await doTx()
   }
-
 }
+
+
+const start = async () => {
+  if (doing) {
+    return
+  }
+  doing = true
+
+  try {
+    await start2()
+  } catch (e) {
+    console.log(e)
+  }
+  doing = false
+}
+
 
 
 
