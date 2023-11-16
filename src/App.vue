@@ -8,7 +8,8 @@
     <p>gas小费(gwei)：<input type="text" v-model="gasTip" /></p>
     <p>张数：<input type="text" v-model="count" /></p>
     <h2>
-      <span class="deploy" @click="start">开始</span>
+      <span v-if="doing" class="deploy" @click="start">Mint中</span>
+      <span v-else class="deploy" @click="start">开始</span>
     </h2>
     <h3>mint要输入私钥，请尽量用小号私钥填充，代码开源在<a href="https://github.com/minchenzz/pols-mint" target="_blank">github</a>，如担心安全问题请自行下载并部署该服务</h3>
     <p>author: <a href="https://twitter.com/chenmin22998595" target="_blank">@chems</a></p>
